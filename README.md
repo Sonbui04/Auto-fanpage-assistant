@@ -265,9 +265,6 @@ Issue và pull request đều được chào đón:
 
 Nếu dự án hữu ích, hãy cân nhắc **Star ⭐ repository** để theo dõi các bản cập nhật và giúp nhiều người tìm thấy dự án hơn.
 
-## Tác giả
-
-Phát triển bởi [Sonbui04](https://github.com/Sonbui04).
 
 ---
 
