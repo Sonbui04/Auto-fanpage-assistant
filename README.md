@@ -22,6 +22,7 @@
 - [Cấu hình AI và 9Router](#cấu-hình-ai-và-9router)
 - [Các lệnh Telegram](#các-lệnh-telegram)
 - [Kiểm thử](#kiểm-thử)
+- [Triển khai Docker trên AWS EC2](#triển-khai-docker-trên-aws-ec2)
 - [Bảo mật và sử dụng nội dung](#bảo-mật-và-sử-dụng-nội-dung)
 - [Lộ trình](#lộ-trình)
 - [Đóng góp](#đóng-góp)
@@ -218,6 +219,34 @@ Chạy test:
 npm test
 ```
 
+## Triển khai Docker trên AWS EC2
+
+Dự án có sẵn `Dockerfile` để chạy bot liên tục trên EC2 hoặc một máy chủ Linux khác.
+
+```bash
+git clone https://github.com/Sonbui04/Auto-fanpage-assistant.git
+cd Auto-fanpage-assistant
+cp .env.example .env
+# Điền secret vào .env trực tiếp trên máy chủ
+
+docker build -t auto-fanpage-assistant .
+docker run -d \
+  --name auto-fanpage-assistant \
+  --restart unless-stopped \
+  --env-file .env \
+  -v auto-fanpage-data:/app/data \
+  auto-fanpage-assistant
+```
+
+Kiểm tra trạng thái:
+
+```bash
+docker ps
+docker logs --tail 100 auto-fanpage-assistant
+```
+
+Với Telegram long polling, máy chủ không cần mở cổng HTTP/HTTPS. Chỉ mở SSH từ địa chỉ IP tin cậy khi thực sự cần quản trị từ xa.
+
 ## Cấu trúc dự án
 
 ```text
@@ -232,6 +261,7 @@ src/
 └── types.ts      # Kiểu dữ liệu
 test/
 └── db.test.ts
+Dockerfile         # Image chạy bot trên máy chủ
 ```
 
 ## Bảo mật và sử dụng nội dung
