@@ -233,10 +233,14 @@ docker build -t auto-fanpage-assistant .
 docker run -d \
   --name auto-fanpage-assistant \
   --restart unless-stopped \
+  --network host \
+  -e NODE_OPTIONS="--dns-result-order=ipv4first --no-network-family-autoselection" \
   --env-file .env \
   -v auto-fanpage-data:/app/data \
   auto-fanpage-assistant
 ```
+
+`--network host` cho phép container gọi AI gateway đang chạy tại `127.0.0.1` trên EC2. Hai tùy chọn Node.js ưu tiên IPv4, giúp Telegram hoạt động ổn định trên máy chủ chưa cấu hình IPv6.
 
 Kiểm tra trạng thái:
 
